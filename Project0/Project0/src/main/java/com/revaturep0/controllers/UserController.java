@@ -42,4 +42,42 @@ public class UserController {
      */
 
     //DONALD'S CODE HERE FOR CREATE ACCOUNT AND LOG IN
+    @GetMapping("{id}")
+    public User getUserByIdHandler(@PathVariable int id) {
+        User user;
+        try {
+            user = this.us.findUserById(id);
+        }
+        catch (userNotFoundException e) {
+            return ResponseEntity<>(NOT_FOUND); // returns 404
+        }
+        return ResponseEntity<>(user, OK);
+    }
+
+
+    @PostMapping
+    public User createUserHandler(@RequestBody User user) {
+
+        User user;
+        try {
+            user = this.us.createUserAccount(user);
+        }
+        catch (Exception e) {
+            return ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return ResponseEntity<>(user, HttpStatus.OK);
+
+    }
+
+    @PostMapping({"/login"})
+    public User userLoginHandler(@RequestBody User user) {
+        User user;
+        try {
+            user = this.us.findUserByUsernameAndPass(user.getUsername(), user.getPassword());
+        }
+        catch (Exception e) {
+            return ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        return ResponseEntity<>(HttpStatus.OK);
+    }
 }

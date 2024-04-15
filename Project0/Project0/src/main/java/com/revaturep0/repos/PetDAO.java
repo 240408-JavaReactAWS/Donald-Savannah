@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PetDAO extends JpaRepository<User, Integer> {
+public interface PetDAO extends JpaRepository<Pet, Integer> {
 
-
+    Pet findPetByPetName(String petName);
 }

@@ -15,18 +15,20 @@ really have to run SQL to create them
 public class Pet {
 
     @Id
-    @Column (name = "userId")
+    @Column (name = "petId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false)
-    private String name;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "userId_fk")
+    private int userId; //careful...make a fk
+
+    @Column(unique = true, nullable = false)
+    private String petName;
 
     @Column(nullable = false)
     private String species;
 
-    //what annotation?
-    private int userId; //careful...make a fk
 
     //constructor 1
     public Pet(){
@@ -35,17 +37,17 @@ public class Pet {
 
     //const 2 -- only Id given (user id would be automatic, so incl here or no?)
     public Pet(String name){
-        this.name = name;
+        this.petName = name;
     }
 
     public Pet(int id, String name){
         this.id = id;
-        this.name = name;
+        this.petName = name;
     }
 
     public Pet(int id, String name, String species, int userId){
         this.id = id;
-        this.name = name;
+        this.petName = name;
         this.species = species;
         this.userId = userId;
     }
@@ -58,12 +60,12 @@ public class Pet {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getPetName() {
+        return this.petName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPetName(String name) {
+        this.petName = name;
     }
 
     public String getSpecies() {
