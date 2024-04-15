@@ -15,7 +15,7 @@ import java.util.List;
 public class PetService {
 
     private PetDAO pd;
-    private UserDAO ud;
+    // private UserDAO ud;
 
     public PetService(PetDAO pd){
         this.pd = pd;
@@ -30,7 +30,7 @@ public class PetService {
     }
 
     //"As a user, I can view all items"
-    public List<User> getAllPets(){
+    public List<Pet> getAllPets(){
         return pd.findAll();
     }
 }

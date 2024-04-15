@@ -43,41 +43,41 @@ public class UserController {
 
     //DONALD'S CODE HERE FOR CREATE ACCOUNT AND LOG IN
     @GetMapping("{id}")
-    public User getUserByIdHandler(@PathVariable int id) {
+    public ResponseEntity<User> getUserByIdHandler(@PathVariable int id) {
         User user;
         try {
             user = this.us.findUserById(id);
         }
-        catch (userNotFoundException e) {
-            return ResponseEntity<>(NOT_FOUND); // returns 404
+        catch (Exception e) {
+            return new ResponseEntity<User>(NOT_FOUND); // returns 404
         }
-        return ResponseEntity<>(user, OK);
+        return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 
 
     @PostMapping
-    public User createUserHandler(@RequestBody User user) {
+    public ResponseEntity<User> createUserHandler(@RequestBody User petOwner) {
 
         User user;
         try {
-            user = this.us.createUserAccount(user);
+            user = this.us.createUserAccount(petOwner);
         }
         catch (Exception e) {
-            return ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
         }
-        return ResponseEntity<>(user, HttpStatus.OK);
+        return new ResponseEntity<User>(user, HttpStatus.OK);
 
     }
 
     @PostMapping({"/login"})
-    public User userLoginHandler(@RequestBody User user) {
-        User user;
+    public ResponseEntity<User> userLoginHandler(@RequestBody User user) {
+        User returnedUser;
         try {
-            user = this.us.findUserByUsernameAndPass(user.getUsername(), user.getPassword());
+            returnedUser = this.us.findUserByUsernameAndPass(user.getUsername(), user.getPassword());
         }
         catch (Exception e) {
-            return ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<User>(HttpStatus.UNAUTHORIZED);
         }
-        return ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<User>(returnedUser, HttpStatus.OK);
     }
 }

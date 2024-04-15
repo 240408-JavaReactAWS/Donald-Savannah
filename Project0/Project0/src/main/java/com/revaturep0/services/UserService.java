@@ -1,5 +1,5 @@
 package com.revaturep0.services;
-
+import java.util.Optional;
 import com.revaturep0.models.User;
 import com.revaturep0.repos.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import java.util.List;
 public class UserService {
 
 
-    private UserDAO this.userDAO;
+    private UserDAO userDAO;
 
 
     @Autowired
@@ -31,7 +31,13 @@ public class UserService {
 
 
     public User findUserById(int id) {
-        return this.userDAO.findById(id).orElseThrow(() -> UserNotFoundException("No user found by id" + id));
+
+        Optional<User> optionalUser = this.userDAO.findById(id);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            return user;
+        }
+        return null;
     }
 
 
