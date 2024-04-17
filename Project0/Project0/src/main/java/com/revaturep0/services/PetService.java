@@ -16,21 +16,21 @@ public class PetService {
 
     private PetDAO pd;
     // private UserDAO ud;
-
+    @Autowired
     public PetService(PetDAO pd){
         this.pd = pd;
     }
 
     //"As a user, I can create a new item"
     //note: use post instead of create??
-    @Autowired
+
     public Pet postPet(Pet pet) throws ResponseStatusException {
-//        return pd.save(pet); //?? should extend users??
-        return null; //temporary
+        return this.pd.save(pet); //?? should extend users??
+        //return null; //temporary
     }
 
     //"As a user, I can view all items"
     public List<Pet> getAllPets(){
-        return pd.findAll();
+        return this.pd.findAll();
     }
 }

@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PetDAO extends JpaRepository<Pet, Integer> {
 
-    Pet findPetByPetName(String petName);
+    //Pet findPetByPetName(String petName);
 }

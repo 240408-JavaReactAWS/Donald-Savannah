@@ -21,7 +21,8 @@ public class Pet {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userId_fk")
-    private int userId; //careful...make a fk
+    private User user; //careful...make a fk
+
 
     @Column(unique = true, nullable = false)
     private String petName;
@@ -45,11 +46,15 @@ public class Pet {
         this.petName = name;
     }
 
-    public Pet(int id, String name, String species, int userId){
+    public Pet(int id) {
         this.id = id;
-        this.petName = name;
+    }
+
+    public Pet(String species, int id, User user, String petName) {
         this.species = species;
-        this.userId = userId;
+        this.id = id;
+        this.user = user;
+        this.petName = petName;
     }
 
     public int getId() {
@@ -76,11 +81,11 @@ public class Pet {
         this.species = species;
     }
 
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

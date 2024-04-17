@@ -1,6 +1,7 @@
 package com.revaturep0.controllers;
 
 import com.revaturep0.models.Pet;
+import com.revaturep0.models.User;
 import com.revaturep0.services.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,14 +20,38 @@ public class PetController {
 
     private PetService ps;
 
+    // Constructor
     @Autowired
     public PetController(PetService ps) {
         this.ps = ps;
     }
 
-    @PostMapping(path = "/pets")
-    private Pet PostPet(@RequestBody Pet pet){
-        return ps.postPet(pet);
+    // As a user, I can add a pet
+    //@PostMapping(path = "/pets")
+    @PostMapping
+    public ResponseEntity<Pet> postPet(@RequestBody Pet pet){
+        //return ps.postPet(pet);
+        Pet returnedPet;
+        try{
+            returnedPet = this.ps.postPet(pet);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<Pet>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<Pet>(returnedPet, OK);
     }
 
+
+    // As a user, I can view all pets
+    @GetMapping
+    public ResponseEntity<List<Pet>> getAllPets() {
+        List<Pet> allPets;
+        try{
+            allPets = this.ps.getAllPets();
+        }
+        catch (Exception e) {
+            return new ResponseEntity<List<Pet>>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<List<Pet>>(allPets, HttpStatus.OK);
+    }
 }

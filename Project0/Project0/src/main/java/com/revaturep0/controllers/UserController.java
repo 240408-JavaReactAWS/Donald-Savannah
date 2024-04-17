@@ -7,11 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-
-import static org.springframework.http.HttpStatus.NOT_FOUND;
-import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @RequestMapping("/users") // Controls where the requests are being sent to -> http://localhost:8080/users
@@ -23,25 +19,21 @@ public class UserController {
     public UserController(UserService us) {
         this.us = us;
     }
-    //SAVANNAH'S CODE HERE: USER CAN CREATE NEW ITEM AND VIEW ALL ITEMS
 
-    //will do this in pet controller for now
-    /*
-    will be something like this...
 
-    @PostMapping(path = "/messages")
-    private Message PostMessage(@RequestBody Message message){
-        return messageService.postMessage(message);
+    @GetMapping
+    public ResponseEntity<List<User>> getAllUserAccounts() {
+        List<User> returnedUsers;
+        try{
+            returnedUsers = this.us.getAllUsers();
+        }
+        catch (Exception e) {
+            return new ResponseEntity<List<User>>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<List<User>>(returnedUsers, HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping(path = "/messages")
-    public List<Message> findAllMessages() {
-        System.out.println("in controller find messages");
-        return messageService.findAllMessages();
-        }
-     */
 
-    //DONALD'S CODE HERE FOR CREATE ACCOUNT AND LOG IN
     @GetMapping("{id}")
     public ResponseEntity<User> getUserByIdHandler(@PathVariable int id) {
         User user;
@@ -49,7 +41,7 @@ public class UserController {
             user = this.us.findUserById(id);
         }
         catch (Exception e) {
-            return new ResponseEntity<User>(NOT_FOUND); // returns 404
+            return new ResponseEntity<User>(HttpStatus.NOT_FOUND); // returns 404
         }
         return new ResponseEntity<User>(user, HttpStatus.OK);
     }
@@ -66,7 +58,6 @@ public class UserController {
             return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<User>(user, HttpStatus.OK);
-
     }
 
     @PostMapping({"/login"})
