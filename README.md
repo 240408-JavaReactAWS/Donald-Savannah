@@ -13,7 +13,7 @@ Using Spring Boot, the developers will create a simple API for data collection o
 
 - All data should be stored in a SQL Database using an in-memory H2 database for data persistance.
 
-    - As a user, I can create a new Item
-    - As a user, I can view all Items
-    - As a user, I can create an account to hold my Items
-    - As a user, I can login to my account (which is stored in the database)
+    - As a user, I can add a pet
+    - As a user, I can view all pets
+    - As a user, I can create an account
+    - As a user, I can login to my account
