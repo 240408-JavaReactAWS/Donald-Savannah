@@ -30,7 +30,7 @@ public class UserController {
         catch (Exception e) {
             return new ResponseEntity<List<User>>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<List<User>>(returnedUsers, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<List<User>>(returnedUsers, HttpStatus.OK);
     }
 
 
@@ -57,7 +57,7 @@ public class UserController {
         catch (Exception e) {
             return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<User>(user, HttpStatus.OK);
+        return new ResponseEntity<User>(user, HttpStatus.CREATED);
     }
 
     @PostMapping({"/login"})

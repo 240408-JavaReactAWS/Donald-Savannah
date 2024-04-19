@@ -38,7 +38,7 @@ public class PetController {
         catch (Exception e) {
             return new ResponseEntity<Pet>(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<Pet>(returnedPet, OK);
+        return new ResponseEntity<Pet>(returnedPet, HttpStatus.CREATED);
     }
 
 
