@@ -1,3 +1,9 @@
+
+# Item Management API
+
+# PetRecord
+A restful application that collect data on pets
+
 # Description
 The mayor of Gaithersburg in Maryland would like to know the number of pets by 
 species and the total number of pet in his city. To do so, he has met with professional developers to buid an application that will be used
